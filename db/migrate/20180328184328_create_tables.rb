@@ -20,7 +20,7 @@ class CreateTables < ActiveRecord::Migration[5.0]
     create_table :registrations do |t|
       t.integer :student_id
       t.integer :course_id
-      t.datetime :registration_date
+      t.timestamps
     end
 
 
