@@ -12,6 +12,7 @@ def interactive
   system('clear')
 
   if (user_selection == "")
+    puts "You must make a selection."
     interactive
   elsif user_selection == '1'
     puts "_____________________________________"
@@ -20,8 +21,11 @@ def interactive
     puts "_____________________________________"
     teacher_method
   elsif user_selection == '3'
-    puts "Have a nice day!"
+    puts "Don't be a fool, stay in school! Have a nice day!"
     exit
+  else
+    puts "Invalid selection!"
+    interactive
   end
 
 
