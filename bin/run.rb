@@ -1,3 +1,6 @@
-require_relative '../config/environment'
-Teacher.first.averages(Course.first)
-teacher_method
+require_relative '../config/environment.rb'
+
+#call greeting and methods here
+
+greet
+interactive
