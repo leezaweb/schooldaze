@@ -7,10 +7,11 @@ class Student < ActiveRecord::Base
   def total_tuition_cost
     tuition_cost = courses.inject(0) {|sum, c| sum + c.cost}
     tuition_cost = sprintf( "%0.02f", tuition_cost).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
-    puts "Total tuition paid: $#{tuition_cost}
+    puts "\nTotal tuition paid: $#{tuition_cost}
       \n"
 
-    puts tp self.courses,:subject,:cost
+    # puts tp self.courses,:subject,:cost
+    tp self.courses,:subject,:cost
   end
 
   #get gpa method from registration table grade
@@ -20,9 +21,9 @@ class Student < ActiveRecord::Base
       # binding.pry
       final_gpa = total.to_f / (self.registrations.where('grade is not null').count).to_f
       self.update(gpa:final_gpa.round(2))
-      puts "Your total GPA is: #{self.gpa}"
+      puts "\nYour total GPA is: #{self.gpa}"
     else
-      puts "You dont have any grades yet"
+      puts "\nYou dont have any grades yet"
     end
 
   end
@@ -32,24 +33,33 @@ class Student < ActiveRecord::Base
     puts self.get_gpa
     grades = self.registrations.includes(:course)
     # puts "Your grades for each class are as follows:\n"
-    puts tp grades, {"Subject" => {:display_method => lambda{|x| x.course.subject}}}, :grade
+    tp grades, {"Subject" => {:display_method => lambda{|x| x.course.subject}}}, :grade
   end
 
   #register for a course using a course_id
   def register_for_class(course)
-    if self.registrations.find_by(course_id: 2).nil?
-      Registration.create(student_id:self.id, course_id:course)
+    # binding.pry
+    if self.registrations.find_by(course_id: course.to_i).nil?
+      Registration.create(student_id:self.id, course_id:course.to_i)
     else
-      "You already registered for that class:"
+      puts "_____________________________________"
+      puts "\nYou already registered for that class:"
     end
     registration_table = self.registrations.includes(:course)
 
-    puts tp registration_table, {"Subject" => {:display_method => lambda{|x| x.course.subject}}}, {"Registered On" => {:display_method => lambda{|x| x.created_at}}}
+    tp registration_table, {"Subject" => {:display_method => lambda{|x| x.course.subject}}}, {"Registered On" => {:display_method => lambda{|x| x.created_at}}}
   end
 
   def my_classes
     registration_table = self.registrations.includes(:course)
-    puts tp registration_table, {"Subject" => {:display_method => lambda{|x| x.course.subject}}}, {"Teacher Name" => {:display_method => lambda{|x| "Professor " + x.course.teacher.last_name}}}
+    tp registration_table, {"Subject" => {:display_method => lambda{|x| x.course.subject}}}, {"Teacher Name" => {:display_method => lambda{|x| "Professor " + x.course.teacher.last_name}}}
+  end
+
+  def drop_course(course)
+    registrations.find_by(course_id:course.to_i).delete
+    puts "\nThese are the courses you are still registered for:"
+    registration_table = self.registrations.includes(:course)
+    tp registration_table, {"Subject" => {:display_method => lambda{|x| x.course.subject}}}, {"Teacher Name" => {:display_method => lambda{|x| "Professor " + x.course.teacher.last_name}}}
   end
 
 

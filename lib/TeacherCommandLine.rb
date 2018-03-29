@@ -1,6 +1,7 @@
 def teacher_method
   puts "\nPlease enter your Teacher ID"
   given_id = gets.chomp
+  system('clear')
   if Teacher.exists?(given_id)
     user = Teacher.find(given_id)
     puts "\nHello, Professor #{user.last_name}!"
@@ -15,6 +16,7 @@ end
 def teacher_screen(user)
   puts "\nPlease select one of the following.\n\t1 - Courses\n\t2 - Students\n\t3 - Reports\n\t4 - Return to Main Screen"
   teacher_choice = gets.chomp
+  system('clear')
 
   puts "_________________________________________________"
   case teacher_choice
@@ -36,6 +38,7 @@ end
 def courses_screen(user)
   puts "\nCOURSES\n   You can:\n\t1 - Add Course\n\t2 - List Courses\n\t3 - Return to Main Screen"
   courses_choice = gets.chomp
+  system('clear')
   case courses_choice
     when "1"
       user.add_course
@@ -53,6 +56,7 @@ end
 def students_screen(user)
   puts "\nSTUDENTS\n   You can:\n\t1 - Give Grade\n\t2 - List Students\n\t3 - Return to Main Screen"
   students_choice = gets.chomp
+  system('clear')
   case students_choice
     when "1"
       user.give_grade
@@ -71,6 +75,7 @@ end
 def reports_screen(user)
   puts "\nREPORTS\n   Please select one of the following.\n\t1 - Average Grades\n\t2 - Profitability\n\t3 - Return to Main Screen"
   reports_choice = gets.chomp
+  system('clear')
   case reports_choice
     when "1"
       user.average_grades

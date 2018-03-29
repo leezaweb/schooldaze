@@ -23,10 +23,13 @@ class Teacher < ActiveRecord::Base
     puts "\nADD COURSE"
     puts "\nCourse Name:"
     subject = gets.chomp
+    system('clear')
     puts "\nCourse Cost:"
     cost = gets.chomp
+    system('clear')
     puts "\nCourse Pay:"
     pay = gets.chomp
+    system('clear')
 
     Course.create(teacher_id:self.id,subject:subject,cost:cost,pay:pay)
     puts "\nYou added #{subject}"
@@ -36,7 +39,7 @@ class Teacher < ActiveRecord::Base
   def list_courses
     puts "\nLIST COURSES"
     puts "#{self.courses.count} course(s): #{self.courses.pluck(:subject).to_sentence}"
-    puts tp self.courses, :subject, :students => {:display_method => lambda{|x|x.registrations.count}}
+    tp self.courses, :subject, :students => {:display_method => lambda{|x|x.registrations.count}}
   end
 
 
@@ -45,7 +48,7 @@ class Teacher < ActiveRecord::Base
   #   most = self.courses.joins(:registrations).group(:course_id).order("count(course_id) DESC").first
   #   puts "\n#{most.subject} has the most registrations: #{most.students.count}"
   #   counter = 0
-  #   puts tp most.students, {"#" =>{:display_method => lambda{|x| counter+=1}}}, {"full_name" =>{:display_method => lambda{|x| "#{x.first_name} #{x.last_name}"}}}
+  #   tp most.students, {"#" =>{:display_method => lambda{|x| counter+=1}}}, {"full_name" =>{:display_method => lambda{|x| "#{x.first_name} #{x.last_name}"}}}
   # end
 
 
@@ -54,10 +57,13 @@ class Teacher < ActiveRecord::Base
     puts "\nGIVE GRADE"
     puts "\nStudent Name:"
     student = gets.chomp
+    system('clear')
     puts "\nCourse Subject:"
     course = gets.chomp
+    system('clear')
     puts "\nGrade:"
     grade = gets.chomp
+    system('clear')
 
 
     student = Student.find_by(first_name:student.split[0])
@@ -99,14 +105,14 @@ class Teacher < ActiveRecord::Base
   def list_students
     puts "\nLIST STUDENTS"
     puts "#{self.students.count} student(s): " + self.students.distinct.map{|student| "#{student.first_name} #{student.last_name}"}.to_sentence
-    puts tp self.students.distinct, {"full_name" =>{:display_method => lambda{|x| "#{x.first_name} #{x.last_name}"}}}, {:courses=> {:display_method => lambda{|x|x.courses.select{|x|self.courses.include?(x)}.map{|x|x.subject}.to_sentence}, :width => 360}}
+    tp self.students.distinct, {"full_name" =>{:display_method => lambda{|x| "#{x.first_name} #{x.last_name}"}}}, {:courses=> {:display_method => lambda{|x|x.courses.select{|x|self.courses.include?(x)}.map{|x|x.subject}.to_sentence}, :width => 360}}
   end
 
 
   ###REPORTS
   def profitability
     puts "\nPROFITABILITY"
-    puts tp self.courses, :subject, "$$$" => {:display_method => lambda{|x|profits(x)}}
+    tp self.courses, :subject, "$$$" => {:display_method => lambda{|x|profits(x)}}
 
   end
 
@@ -120,7 +126,7 @@ class Teacher < ActiveRecord::Base
 
   def average_grades
     puts "\nAVERAGE GRADES"
-    puts tp self.courses, :subject, "Grade" => {:display_method => lambda{|x|averages(x)}}
+    tp self.courses, :subject, "Grade" => {:display_method => lambda{|x|averages(x)}}
 
 
   end

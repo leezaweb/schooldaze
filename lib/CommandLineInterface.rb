@@ -9,6 +9,7 @@ def interactive
 
   puts "\n1 - Student\n2 - Teacher\n3 - Exit"
   user_selection = gets.chomp
+  system('clear')
 
   if (user_selection == "")
     interactive
