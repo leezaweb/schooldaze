@@ -22,7 +22,7 @@ def interactive
     puts "_____________________________________"
     teacher_method
   elsif user_selection == '3'
-    puts "Don't be a fool, stay in school! Have a nice day!"
+    puts "Don't be a fool, stay in school! Have a nice day!".blue.bold
     exit
   else
     puts "Invalid selection!"
