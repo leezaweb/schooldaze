@@ -18,4 +18,5 @@ def secret_menu
     -table_print
 
   "
+  interactive
 end
