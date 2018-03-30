@@ -35,7 +35,7 @@ class Teacher < ActiveRecord::Base
       # binding.pry
       Course.create(teacher_id:self.id,subject:subject,cost:cost,pay:pay)
       puts "\nYou added #{subject}."
-      teacher_screen(user)
+      teacher_screen(self)
     elsif subject.empty?
       puts "You must enter a subject."
     elsif !cost.scan(/\D/).empty? || !pay.scan(/\D/).empty?
@@ -86,7 +86,7 @@ class Teacher < ActiveRecord::Base
       if ['A','B','C','D','E','F'].include?(grade.upcase) && registered && self.students.include?(student) && self.courses.include?(course) && registered.grade.nil?
         registered.update(grade:numeric(grade))
         puts "\n#{student.first_name} #{student.last_name} was given the grade '#{grade.upcase}' for #{course.subject}."
-        teacher_screen(user)
+        teacher_screen(self)
       elsif !self.students.include?(student)
         puts "\nError! Not your student."
       elsif !self.courses.include?(course)
