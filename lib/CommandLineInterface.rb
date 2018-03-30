@@ -33,6 +33,9 @@ def interactive
     exit
   elsif user_selection == 'secret'
     secret_menu
+  else
+    puts "❌  Invalid choice".red.blink.center(90)
+    interactive
   end
   puts "__________________________________________________________________________".center(82)
 

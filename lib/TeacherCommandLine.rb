@@ -30,7 +30,7 @@ def teacher_screen(user)
     when "4"
       interactive
     else
-      puts "❌  Invalid choice"
+      puts "❌  Invalid choice".red.blink
       puts "__________________________________________________________________________"
       teacher_screen(user)
   end
