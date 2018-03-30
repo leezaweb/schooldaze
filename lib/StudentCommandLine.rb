@@ -1,17 +1,17 @@
 def student_method
-  puts "\nPlease enter your Student ID:"
+  puts "Please enter your Student ID:".center(82)
   given_id = gets.chomp
   system ('clear')
 
   if !given_id.scan(/\D/).empty?
-    puts "Invalid Student ID".red.blink.center(82)
-    puts "_____________________________________".center(82)
+    puts "Invalid Student ID".red.blink.center(90)
+    puts "__________________________________________________________________________".center(82)
     interactive
   end
 
   if !Student.exists?(id: given_id)
     system('clear')
-    puts "That's not a valid student ID".red.blink
+    puts "That's not a valid student ID".red.blink.center(82)
     interactive
   end
 
@@ -74,10 +74,10 @@ def student_screen(given_id)
     interactive
   else
     puts "Thats not a valid selection.".red.blink
-    puts "_____________________________________"
+    puts "__________________________________________________________________________"
     student_screen(given_id)
   end
-  puts "_________________________________________________"
+  puts "__________________________________________________________________________"
   student_screen(given_id)
 end
 
