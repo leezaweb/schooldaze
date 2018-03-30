@@ -11,7 +11,8 @@ def student_method
 
   if !Student.exists?(id: given_id)
     system('clear')
-    puts "That's not a valid student ID".red.blink.center(82)
+    puts "That's not a valid student ID".red.blink.center(90)
+    puts "__________________________________________________________________________".center(82)
     interactive
   end
 
