@@ -2,7 +2,7 @@ def teacher_method
   puts "Please enter your Teacher ID:".center(82)
   given_id = gets.chomp
   system('clear')
-  if Teacher.exists?(given_id)
+  if Teacher.exists?(given_id) && given_id.scan(/\D/).empty?
     user = Teacher.find(given_id)
     puts "\nHello, Professor #{user.last_name}!"
     user.get_salary
