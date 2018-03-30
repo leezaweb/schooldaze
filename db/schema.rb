@@ -28,10 +28,9 @@ ActiveRecord::Schema.define(version: 20180328211849) do
   end
 
   create_table "students", force: :cascade do |t|
-    t.string  "first_name"
-    t.string  "last_name"
-    t.integer "grade"
-    t.float   "gpa"
+    t.string "first_name"
+    t.string "last_name"
+    t.float  "gpa"
   end
 
   create_table "teachers", force: :cascade do |t|

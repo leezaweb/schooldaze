@@ -29,11 +29,11 @@ def student_screen(given_id)
     student_method
   elsif selection == '1'
     Student.find(given_id).get_gpa
-    # puts "_____________________________________"
+    # puts "_________________________________________________"
 
   elsif selection == '2'
     Student.find(given_id).report_card
-    # puts "_____________________________________"
+    # puts "_________________________________________________"
 
   elsif selection == '3'
     ##puts all classes with ID
@@ -71,11 +71,11 @@ def student_screen(given_id)
     puts "_____________________________________"
     student_screen(given_id)
   end
-  puts "_____________________________________"
+  puts "_________________________________________________"
   student_screen(given_id)
 end
 
 def print_course_with_id
   # binding.pry
-  tp Course.all, :id, :subject
+  tp Course.all.includes(:teacher), :id, :subject, "teacher" => lambda{|x|"Professor #{x.teacher.last_name}"}
 end

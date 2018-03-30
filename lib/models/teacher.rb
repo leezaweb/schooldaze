@@ -121,7 +121,7 @@ class Teacher < ActiveRecord::Base
       payment_amounts = course.registrations.count * course.cost
       profit = sprintf( "%0.02f", payment_amounts - cost).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
       payment_amounts - cost < 0 ? resulted_in = "Lost" : resulted_in = "Generated"
-      "#{resulted_in} $#{profit.gsub('-','')}."
+      "#{resulted_in} $#{profit.gsub('-','')}"
   end
 
   def average_grades
@@ -133,7 +133,7 @@ class Teacher < ActiveRecord::Base
 
   def averages(course)
     if course.registrations && course.registrations.pluck(:grade).any?
-      (course.registrations.sum(:grade) / course.registrations.count).to_f
+      (course.registrations.sum(:grade).to_f / course.registrations.count).to_f
     elsif !course.registrations
       "No students."
     elsif course.registrations.pluck(:grade).none?
