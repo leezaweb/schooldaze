@@ -4,14 +4,14 @@ def student_method
   system ('clear')
 
   if !given_id.scan(/\D/).empty?
-    puts "Invalid Student ID".red.blink.center(90)
+    puts "❌  Invalid Student ID".red.blink.center(90)
     puts "__________________________________________________________________________".center(82)
     interactive
   end
 
   if !Student.exists?(id: given_id)
     system('clear')
-    puts "That's not a valid student ID".red.blink.center(90)
+    puts "❌  That's not a valid student ID".red.blink.center(90)
     puts "__________________________________________________________________________".center(82)
     interactive
   end
@@ -32,7 +32,7 @@ def student_screen(given_id)
 
 
   if selection == ""
-    puts "Invalid selection".red.blink
+    puts "❌  Invalid selection".red.blink
     student_method
   elsif selection == '1'
     Student.find(given_id).get_gpa
@@ -51,7 +51,7 @@ def student_screen(given_id)
     if Course.exists?(id: id)
       Student.find(given_id).register_for_class(id)
     else
-      puts "That is not a valid course selection...".red.blink
+      puts "❌  That is not a valid course selection...".red.blink
     end
 
   elsif selection == '4'
@@ -68,13 +68,13 @@ def student_screen(given_id)
     if Student.find(given_id).registrations.exists?(course_id: id)
       Student.find(given_id).drop_course(id)
     else
-      puts "That is not a valid selection.".red.blink
+      puts "❌  That is not a valid selection.".red.blink
       interactive
     end
   elsif selection == '7'
     interactive
   else
-    puts "Thats not a valid selection.".red.blink
+    puts "❌  Thats not a valid selection.".red.blink
     puts "__________________________________________________________________________"
     student_screen(given_id)
   end
