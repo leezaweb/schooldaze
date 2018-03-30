@@ -11,7 +11,8 @@ class Student < ActiveRecord::Base
       \n"
 
     # puts tp self.courses,:subject,:cost
-    tp self.courses,:subject,:cost
+    tp self.courses,:subject, {"Subject" => {:display_method => lambda{|x| "$" + "#{sprintf( "%0.02f", x.cost).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse}"}}}
+
   end
 
   #get gpa method from registration table grade
@@ -33,7 +34,7 @@ class Student < ActiveRecord::Base
     puts self.get_gpa
     grades = self.registrations.includes(:course)
     # puts "Your grades for each class are as follows:\n"
-    tp grades, {"Subject" => {:display_method => lambda{|x| x.course.subject}}}, :grade
+    tp grades, {"Subject" => {:display_method => lambda{|x| x.course.subject}}}, {"Grades" => {:display_method => lambda{|x| numeric(x.grade)}}}
   end
 
   #register for a course using a course_id
@@ -60,6 +61,22 @@ class Student < ActiveRecord::Base
     puts "\nThese are the courses you are still registered for:"
     registration_table = self.registrations.includes(:course)
     tp registration_table, {"Subject" => {:display_method => lambda{|x| x.course.subject}}}, {"Teacher Name" => {:display_method => lambda{|x| "Professor " + x.course.teacher.last_name}}}
+  end
+
+  def numeric(number)
+    case number
+      when 4
+        'A'
+      when 3
+        'B'
+      when 2
+        'C'
+      when 1
+        'D'
+      else
+        'No Grade'
+      end
+
   end
 
 
