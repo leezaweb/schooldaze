@@ -5,7 +5,7 @@ def student_method
 
   if !Student.exists?(id: given_id)
     system('clear')
-    puts "That's not a valid student ID"
+    puts "That's not a valid student ID".red.blink
     interactive
   end
 
@@ -25,7 +25,7 @@ def student_screen(given_id)
 
 
   if selection == ""
-    puts "Invalid selection"
+    puts "Invalid selection".red.blink
     student_method
   elsif selection == '1'
     Student.find(given_id).get_gpa
@@ -38,13 +38,13 @@ def student_screen(given_id)
   elsif selection == '3'
     ##puts all classes with ID
     print_course_with_id
-    puts "Which course would you like to register for?"
+    puts "\nWhich course would you like to register for? Please enter a course ID:"
     id = gets.chomp
     system ('clear')
     if Course.exists?(id: id)
       Student.find(given_id).register_for_class(id)
     else
-      puts "That is not a valid course selection..."
+      puts "That is not a valid course selection...".red.blink
     end
 
   elsif selection == '4'
@@ -55,19 +55,19 @@ def student_screen(given_id)
 
   elsif selection == '6'
     print_course_with_id
-    puts "Which course would you like to drop?"
+    puts "\nWhich course would you like to drop? Please enter a course ID:"
     id = gets.chomp
     system ('clear')
     if Student.find(given_id).registrations.exists?(course_id: id)
       Student.find(given_id).drop_course(id)
     else
-      puts "That is not a valid selection."
+      puts "That is not a valid selection.".red.blink
       interactive
     end
   elsif selection == '7'
     interactive
   else
-    puts "Thats not a valid selection."
+    puts "Thats not a valid selection.".red.blink
     puts "_____________________________________"
     student_screen(given_id)
   end
