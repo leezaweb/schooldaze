@@ -22,15 +22,14 @@ def interactive
   if (user_selection == "")
     interactive
   elsif user_selection == '1'
-    puts "_____________________________________"
     student_method
   elsif user_selection == '2'
-    puts "_____________________________________"
     teacher_method
   elsif user_selection == '3'
     puts "Don't be a fool, stay in school! Have a nice day!".blue.bold
     exit
   end
+  puts "__________________________________________________________________________".center(82)
 
 
 end

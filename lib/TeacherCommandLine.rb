@@ -1,5 +1,5 @@
 def teacher_method
-  puts "\nPlease enter your Teacher ID"
+  puts "Please enter your Teacher ID:".center(82)
   given_id = gets.chomp
   system('clear')
   if Teacher.exists?(given_id)
@@ -8,8 +8,8 @@ def teacher_method
     user.get_salary
     teacher_screen(user)
   else
-    puts "Invalid ID".red.blink.center(86)
-    puts "_____________________________________".center(82)
+    puts "Invalid Teacher ID".red.blink.center(90)
+    puts "__________________________________________________________________________".center(82)
     teacher_method
   end
 end
@@ -19,7 +19,7 @@ def teacher_screen(user)
   teacher_choice = gets.chomp
   system('clear')
 
-  puts "_________________________________________________"
+  puts "__________________________________________________________________________"
   case teacher_choice
     when "1"
       courses_screen(user)
@@ -31,7 +31,7 @@ def teacher_screen(user)
       interactive
     else
       puts "invalid choice"
-      puts "_________________________________________________"
+      puts "__________________________________________________________________________"
       teacher_screen(user)
   end
 end
@@ -50,7 +50,7 @@ def courses_screen(user)
     else
       puts "invalid choice".red.blink
   end
-  puts "_________________________________________________"
+  puts "__________________________________________________________________________"
   teacher_screen(user)
 end
 
@@ -68,7 +68,7 @@ def students_screen(user)
     else
       puts "invalid choice".red.blink
   end
-  puts "_________________________________________________"
+  puts "__________________________________________________________________________"
   teacher_screen(user)
 end
 
@@ -85,6 +85,6 @@ def reports_screen(user)
     else
       puts "invalid choice".red.blink
   end
-  puts "_________________________________________________"
+  puts "__________________________________________________________________________"
   teacher_screen(user)
 end
