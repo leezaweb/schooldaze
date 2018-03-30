@@ -4,8 +4,8 @@ def student_method
   system ('clear')
 
   if !given_id.scan(/\D/).empty?
-    puts "Invalid Student ID".red.blink
-    puts "_____________________________________"
+    puts "Invalid Student ID".red.blink.center(82)
+    puts "_____________________________________".center(82)
     interactive
   end
 

@@ -8,7 +8,8 @@ def teacher_method
     user.get_salary
     teacher_screen(user)
   else
-    puts "Invalid ID".red.blink
+    puts "Invalid ID".red.blink.center(86)
+    puts "_____________________________________".center(82)
     teacher_method
   end
 end
