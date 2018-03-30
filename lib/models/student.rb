@@ -11,7 +11,7 @@ class Student < ActiveRecord::Base
       \n"
 
     # puts tp self.courses,:subject,:cost
-    tp self.courses,:subject, {"Subject" => {:display_method => lambda{|x| "$" + "#{sprintf( "%0.02f", x.cost).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse}"}}}
+    tp self.courses,:subject, {"Course Cost" => {:display_method => lambda{|x| "$" + "#{sprintf( "%0.02f", x.cost).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse}"}}}
 
   end
 
