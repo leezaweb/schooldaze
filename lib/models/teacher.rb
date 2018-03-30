@@ -22,7 +22,7 @@ class Teacher < ActiveRecord::Base
   def add_course
     puts "\nADD COURSE"
     puts "\nCourse Name:"
-    subject = gets.chomp
+    subject = gets.strip
     system('clear')
     puts "\nCourse Cost:"
     cost = gets.chomp
@@ -31,8 +31,18 @@ class Teacher < ActiveRecord::Base
     pay = gets.chomp
     system('clear')
 
-    Course.create(teacher_id:self.id,subject:subject,cost:cost,pay:pay)
-    puts "\nYou added #{subject}"
+    if !subject.empty? && cost.scan(/\D/).empty? && pay.scan(/\D/).empty?
+      # binding.pry
+      Course.create(teacher_id:self.id,subject:subject,cost:cost,pay:pay)
+      puts "\nYou added #{subject}."
+      teacher_method
+    elsif subject.empty?
+      puts "You must enter a subject."
+    elsif !cost.scan(/\D/).empty? || !pay.scan(/\D/).empty?
+      puts "You must enter dollar amounts."
+    end
+    add_course
+
   end
 
 
@@ -56,34 +66,44 @@ class Teacher < ActiveRecord::Base
   def give_grade
     puts "\nGIVE GRADE"
     puts "\nStudent Name:"
-    student = gets.chomp
+    s = gets.chomp
     system('clear')
     puts "\nCourse Subject:"
-    course = gets.chomp
+    c = gets.chomp
     system('clear')
     puts "\nGrade:"
     grade = gets.chomp
     system('clear')
 
 
-    student = Student.find_by(first_name:student.split[0])
-    course = Course.find_by(subject: course)
+    student = Student.find_by(first_name:s.split[0]) if Student.exists?(first_name:s.split[0])
+    course = Course.find_by(subject: c) if Course.exists?(subject: c)
 
-    registered = Registration.find_by(student_id:student.id,course_id:course.id)
+    if student && course
+      # binding.pry
+      registered = Registration.find_by(student_id:student.id,course_id:course.id) if Registration.exists?(student_id:student.id,course_id:course.id)
 
-    if registered && self.students.include?(student) && self.courses.include?(course) && registered.grade.nil?
-      registered.update(grade:numeric(grade))
-      puts "\n#{student.first_name} #{student.last_name} was given the grade '#{grade}' for #{course.subject}."
-    elsif !self.students.include?(student)
-      puts "\nError! Not your student."
-    elsif !self.courses.include?(course)
-      puts "\nError! Not your course."
-    elsif !registered
-      puts "\n#{student.first_name} #{student.last_name} is not registered for #{course.subject}."
-    elsif registered.grade
-      puts "\nError! The grade '#{grade}' was previously given to #{student.first_name} #{student.last_name} for #{course.subject}."
+      if ['A','B','C','D','E','F'].include?(grade.upcase) && registered && self.students.include?(student) && self.courses.include?(course) && registered.grade.nil?
+        registered.update(grade:numeric(grade))
+        puts "\n#{student.first_name} #{student.last_name} was given the grade '#{grade.upcase}' for #{course.subject}."
+        teacher_method
+      elsif !self.students.include?(student)
+        puts "\nError! Not your student."
+      elsif !self.courses.include?(course)
+        puts "\nError! Not your course."
+      elsif !registered
+        puts "\n#{student.first_name} #{student.last_name} is not registered for #{course.subject}."
+      elsif ['A','B','C','D','E','F'].exclude?(grade.upcase)
+        puts "\n Enter A, B, C, D, E, or F."
+      elsif registered.grade
+        puts "\nError! The grade '#{grade.upcase}' was previously given to #{student.first_name} #{student.last_name} for #{course.subject}."
+      end
+    elsif !student
+      puts "\nStudent doesn't exist."
+    elsif !course
+      puts "\nCourse doesn't exist."
     end
-
+    give_grade
   end
 
   def numeric(letter)
