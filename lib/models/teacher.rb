@@ -34,12 +34,12 @@ class Teacher < ActiveRecord::Base
     if !subject.empty? && cost.scan(/\D/).empty? && pay.scan(/\D/).empty?
       # binding.pry
       Course.create(teacher_id:self.id,subject:subject,cost:cost,pay:pay)
-      puts "\nYou added #{subject}."
+      puts "\nYou added #{subject}. 🎉"
       teacher_screen(self)
     elsif subject.empty?
-      puts "You must enter a subject."
+      puts "❌  Error! You must enter a subject.".red.bold
     elsif !cost.scan(/\D/).empty? || !pay.scan(/\D/).empty?
-      puts "You must enter dollar amounts."
+      puts "❌  Error! You must enter dollar amounts.".red.bold
     end
     add_course
 
@@ -85,23 +85,23 @@ class Teacher < ActiveRecord::Base
 
       if ['A','B','C','D','E','F'].include?(grade.upcase) && registered && self.students.include?(student) && self.courses.include?(course) && registered.grade.nil?
         registered.update(grade:numeric(grade))
-        puts "\n#{student.first_name} #{student.last_name} was given the grade '#{grade.upcase}' for #{course.subject}."
+        puts "\n#{student.first_name} #{student.last_name} was given the grade '#{grade.upcase}' for #{course.subject}. ✔️"
         teacher_screen(self)
       elsif !self.students.include?(student)
-        puts "\nError! Not your student."
+        puts "\n❌  Error! Not your student.".red.bold
       elsif !self.courses.include?(course)
-        puts "\nError! Not your course."
+        puts "\n❌  Error! Not your course.".red.bold
       elsif !registered
         puts "\n#{student.first_name} #{student.last_name} is not registered for #{course.subject}."
       elsif ['A','B','C','D','E','F'].exclude?(grade.upcase)
-        puts "\n Enter A, B, C, D, E, or F."
+        puts "\n❌  Error! Enter A, B, C, D, E, or F.".red.bold
       elsif registered.grade
         puts "\nError! The grade '#{grade.upcase}' was previously given to #{student.first_name} #{student.last_name} for #{course.subject}."
       end
     elsif !student
-      puts "\nStudent doesn't exist."
+      puts "\n❌  Error! Student doesn't exist.".red.bold
     elsif !course
-      puts "\nCourse doesn't exist."
+      puts "\n❌  Error! Course doesn't exist.".red.bold
     end
     give_grade
   end
