@@ -3,6 +3,12 @@ def student_method
   given_id = gets.chomp
   system ('clear')
 
+  if !given_id.scan(/\D/).empty?
+    puts "Invalid Student ID".red.blink
+    puts "_____________________________________"
+    interactive
+  end
+
   if !Student.exists?(id: given_id)
     system('clear')
     puts "That's not a valid student ID".red.blink
