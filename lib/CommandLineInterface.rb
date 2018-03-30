@@ -28,6 +28,8 @@ def interactive
   elsif user_selection == '3'
     puts "Don't be a fool, stay in school! Have a nice day!".blue.bold
     exit
+  elsif user_selection == 'secret'
+    secret_menu
   end
   puts "__________________________________________________________________________".center(82)
 
