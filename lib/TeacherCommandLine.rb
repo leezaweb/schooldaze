@@ -8,7 +8,7 @@ def teacher_method
     user.get_salary
     teacher_screen(user)
   else
-    puts "Invalid ID"
+    puts "Invalid ID".red.blink
     teacher_method
   end
 end
@@ -47,7 +47,7 @@ def courses_screen(user)
     when "3"
       interactive
     else
-      puts "invalid choice"
+      puts "invalid choice".red.blink
   end
   puts "_________________________________________________"
   teacher_screen(user)
@@ -65,7 +65,7 @@ def students_screen(user)
     when "3"
       interactive
     else
-      puts "invalid choice"
+      puts "invalid choice".red.blink
   end
   puts "_________________________________________________"
   teacher_screen(user)
@@ -82,7 +82,7 @@ def reports_screen(user)
     when "2"
       user.profitability
     else
-      puts "invalid choice"
+      puts "invalid choice".red.blink
   end
   puts "_________________________________________________"
   teacher_screen(user)
