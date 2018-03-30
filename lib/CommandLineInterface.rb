@@ -8,6 +8,7 @@ def interactive
   puts "\nPlease select one of the following:"
 
   puts "\n1 - Student\n2 - Teacher\n3 - Exit"
+
   user_selection = gets.chomp
   system('clear')
 
