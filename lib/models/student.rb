@@ -43,8 +43,8 @@ class Student < ActiveRecord::Base
     if self.registrations.find_by(course_id: course.to_i).nil?
       Registration.create(student_id:self.id, course_id:course.to_i)
     else
-      puts "_____________________________________"
-      puts "\nYou already registered for that class:"
+      puts "__________________________________________________________________________"
+      puts "\n❌  Error! You already registered for that class:".red
     end
     registration_table = self.registrations.includes(:course)
 
