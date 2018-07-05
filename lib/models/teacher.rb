@@ -124,7 +124,7 @@ class Teacher < ActiveRecord::Base
 
   def list_students
     puts "\nLIST STUDENTS"
-    puts "#{self.students.count} student(s): " + self.students.distinct.map{|student| "#{student.first_name} #{student.last_name}"}.to_sentence
+    puts "#{self.students.distinct.count} student(s): " + self.students.distinct.map{|student| "#{student.first_name} #{student.last_name}"}.to_sentence
     tp self.students.distinct, {"full_name" =>{:display_method => lambda{|x| "#{x.first_name} #{x.last_name}"}}}, {:courses=> {:display_method => lambda{|x|x.courses.select{|x|self.courses.include?(x)}.map{|x|x.subject}.to_sentence}, :width => 360}}
   end
 
